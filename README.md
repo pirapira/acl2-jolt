@@ -31,9 +31,12 @@ For convenience, we include the following instructions which worked for one auth
 
 ### Step 1: Install ACL2
 
-1. Install Common Lisp:
+1. Install Dependencies:
    - For macOS (make sure Homebrew is installed): `brew install sbcl`
-   - For Ubuntu: `sudo apt-get install sbcl make gcc rustup`
+   - For Ubuntu: `sudo apt-get install sbcl make gcc`
+   - Install Rust
+   - `rustup update nightly`
+   - `rustup default nightly`
 
 2. Download ACL2:
    ```
@@ -61,20 +64,20 @@ For convenience, we include the following instructions which worked for one auth
 1. Certify FGL:
    ```
    cd /path/to/acl2/books/centaur/fgl
-   ../../build/cert.pl --acl2=saved_acl2 top.lisp
+   ../../build/cert.pl top.lisp
    ```
 
 2. Certify GL:
    ```
    cd /path/to/acl2/books/centaur/gl
-   ../../build/cert.pl --acl2=saved_acl2 gl.lisp
+   ../../build/cert.pl gl.lisp
    ```
 
 ### Step 3: Certify Subtables and Instructions
 
 Check that our formalization is correct by certifying our `top` file in the main directory:
 ```
-/path/to/acl2/books/build/cert.pl --acl2=saved_acl2 top.lisp
+/path/to/acl2/books/build/cert.pl top.lisp
 ```
 
 ### Step 4: Run Validation Script for Rust <> ACL2
