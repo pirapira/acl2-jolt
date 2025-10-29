@@ -33,7 +33,7 @@ For convenience, we include the following instructions which worked for one auth
 
 1. Install Common Lisp:
    - For macOS (make sure Homebrew is installed): `brew install sbcl`
-   - For Ubuntu: `sudo apt-get install sbcl make gcc`
+   - For Ubuntu: `sudo apt-get install sbcl make gcc rustup`
 
 2. Download ACL2:
    ```
