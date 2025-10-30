@@ -15,6 +15,12 @@
   :concl (<= (logtail 24 x) 255)
   :g-bindings (gl::auto-bindings (:nat x 32))))
 
+  (local
+   (gl::def-gl-thm logtail-56-lemma
+    :hyp  (and (integerp x) (<= 0 x) (< x (expt 2 64)))
+    :concl (<= (logtail 56 x) (+ -1 (expt 2 8)))  ; ← Now it matches!
+    :g-bindings (gl::auto-bindings (:nat x 64))))
+
 ;; 32-BIT VERSION
 
 (define and-semantics-32 ((x (unsigned-byte-p 32 x)) (y (unsigned-byte-p 32 y)))
@@ -133,7 +139,7 @@
        (y8-1 (part-select y :low 48 :width 8))
        (y8-0 (part-select y :low 56 :width 8))
        ;; Materialize subtables 
-       (indices      (create-tuple-indices (expt 2 8) (expt 2 8)))
+       (indices      (create-tuple-indices (1- (expt 2 8)) (1- (expt 2 8))))
        (and-subtable (materialize-and-subtable  indices))
        ;; Perform lookups
        (w0   (tuple-lookup x8-0 y8-0 and-subtable))
@@ -150,7 +156,7 @@
 (defthm and-64-and-semantics-64-equiv
  (equal (and-64 x y)
 	(and-semantics-64 x y))
- :hints (("Goal" :in-theory (e/d (and-64 and-semantics-64) ((:e expt))))))
+ :hints (("Goal" :in-theory (e/d (and-64 and-semantics-64) ((:e expt) (:e create-tuple-indices))))))
 
 ;; Semantic correctness of and
 (gl::def-gl-thm and-semantics-64-correctness
